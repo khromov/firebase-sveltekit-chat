@@ -14,7 +14,6 @@ import {
 import type { FirebaseApp } from 'firebase/app';
 import { enableMultiTabIndexedDbPersistence } from 'firebase/firestore';
 
-
 const config = {
     useEmulators: env?.PUBLIC_USE_EMULATORS || false,
     region: env?.PUBLIC_REGION || 'europe-west3',
