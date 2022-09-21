@@ -8,27 +8,30 @@ import * as style from '@dicebear/micah';
 import { auth } from '$lib/firebase';
 
 const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+	return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
 export const userStore: any = writable(null);
 
-export const userProfileStore = derived(
-	userStore,
-	$userStore => {
-        return {
-            name: $userStore?.uid ? capitalizeFirstLetter(uniqueNamesGenerator({
-                dictionaries: [colors, starWars],
-                seed: $userStore?.uid,
-                separator: ' ',
-            })) : '',
-            avatar: $userStore?.uid ? createAvatar(style, {
-                seed: $userStore?.uid,
-                // ... and other options
-            }) : false,
-        }
-    }
-);
+export const userProfileStore = derived(userStore, ($userStore) => {
+	return {
+		name: $userStore?.uid
+			? capitalizeFirstLetter(
+					uniqueNamesGenerator({
+						dictionaries: [colors, starWars],
+						seed: $userStore?.uid,
+						separator: ' '
+					})
+			  )
+			: '',
+		avatar: $userStore?.uid
+			? createAvatar(style, {
+					seed: $userStore?.uid
+					// ... and other options
+			  })
+			: false
+	};
+});
 
 export const initUserStore = () => {
 	console.log('🆕 Initializing store: user');
@@ -51,9 +54,9 @@ export const initUserStore = () => {
 
 // Substitute this for whatever you want the login flow to look like
 export const loginUser = async () => {
-    try {
-        await signInAnonymously(auth());
-    } catch(e) {
-        console.error('Could not sign in anonymous user', e);
-    }    
-}
+	try {
+		await signInAnonymously(auth());
+	} catch (e) {
+		console.error('Could not sign in anonymous user', e);
+	}
+};
