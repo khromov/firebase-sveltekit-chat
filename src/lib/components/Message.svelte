@@ -1,7 +1,8 @@
 <script>
+	import moment from 'moment';
 	export let message;
 
-	$: messageDate = message.time?.toDate()?.toLocaleTimeString('sv-SE');
+	$: messageDate = message?.time?.toDate() ? moment(message.time?.toDate()).format('HH:mm - MMMM D') : 'Unknown date';
 </script>
 
 <div class="wrapper">
