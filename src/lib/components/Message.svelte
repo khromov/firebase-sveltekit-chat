@@ -10,7 +10,7 @@
 		{message.message}
 	</div>
 	<div class="user">
-		{message.name} / {messageDate ? messageDate : 'Sending...'}
+		{message.name} / {messageDate && messageDate !== 'Unknown date' ? messageDate : 'Sending...'}
 	</div>
 </div>
 
@@ -29,5 +29,9 @@
 	.user {
 		text-align: right;
 		font-weight: bold;
+	}
+
+	.message {
+		margin-bottom: 10px;
 	}
 </style>
