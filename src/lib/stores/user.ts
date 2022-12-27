@@ -26,7 +26,9 @@ export const userProfileStore = derived(userStore, ($userStore) => {
 			: '',
 		avatar: $userStore?.uid
 			? createAvatar(style, {
-					seed: $userStore?.uid
+					seed: $userStore?.uid,
+					mouth: ['laughing', 'smile', 'pucker', 'smirk'],
+					baseColor: ['apricot', 'coast']
 					// ... and other options
 			  })
 			: false

@@ -1,3 +1,11 @@
+A simple demo chat using SvelteKit + Firebase.
+
+# Online demo
+
+https://f-kit-chat.vercel.app/
+
+You will get a random name and avatar based on your Firebase UID.
+
 # Getting started
 
 ```

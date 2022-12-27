@@ -4,14 +4,18 @@
 	import { initUserStore, userStore, userProfileStore, loginUser } from '$lib/stores/user';
 	import { chatMessagesStore } from '$lib/stores/messages';
 	import Message from '$lib/components/Message.svelte';
+	import GithubBanner from '$lib/components/GithubBanner.svelte';
 
 	let message = '';
+	let chatInput: undefined | HTMLInputElement;
 
 	onMount(async () => {
-		console.log('Hello!');
 		await initialize();
 		await initUserStore();
 		await loginUser();
+
+		// Focus input
+		chatInput?.focus();
 	});
 
 	const onSubmitMessage = async () => {
@@ -30,7 +34,13 @@
 	};
 </script>
 
-<h1>Welcome to the F-kit <br /> (Firebase + SvelteKit) chat</h1>
+<svelte:head>
+	<title>F-kit chat</title>
+</svelte:head>
+
+<GithubBanner url="https://github.com/khromov/firebase-sveltekit-chat" />
+
+<h1>Firebase + SvelteKit chat</h1>
 
 <h2>
 	You are henceforth known as: <br />
@@ -46,12 +56,6 @@
 	{$userProfileStore?.name}
 </h2>
 
-<!-- 
-<pre>
-    {JSON.stringify($userStore)}
-</pre>
--->
-
 <form on:submit|preventDefault={onSubmitMessage}>
 	<label hidden for="message">Message</label>
 	<input
@@ -62,6 +66,7 @@
 		placeholder="What's on your mind?"
 		autocomplete="off"
 		required
+		bind:this={chatInput}
 	/>
 	<input type="submit" value="Send" />
 </form>

@@ -1,7 +1,8 @@
 <script>
+	import moment from 'moment';
 	export let message;
 
-	$: messageDate = message.time?.toDate()?.toLocaleTimeString('sv-SE');
+	$: messageDate = message?.time?.toDate() ? moment(message.time?.toDate()).format('HH:mm - MMMM D') : 'Unknown date';
 </script>
 
 <div class="wrapper">
@@ -9,7 +10,7 @@
 		{message.message}
 	</div>
 	<div class="user">
-		{message.name} / {messageDate ? messageDate : 'Sending...'}
+		{message.name} / {messageDate && messageDate !== 'Unknown date' ? messageDate : 'Sending...'}
 	</div>
 </div>
 
@@ -28,5 +29,9 @@
 	.user {
 		text-align: right;
 		font-weight: bold;
+	}
+
+	.message {
+		margin-bottom: 10px;
 	}
 </style>
